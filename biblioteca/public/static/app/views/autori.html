@@ -1,0 +1,33 @@
+ <h2>Autori</h2>            
+
+  <label for="ricerca">Cerca Autore</label>
+  <input ng-model="ricerca.$" type="text" class="form-control" id="ricerca" aria-describedby="textHelp" placeholder="Scrivi qui">
+  <br>
+  
+ <table class="table table-striped" >
+	<thead>
+	  <tr>
+	    <th>Autore</th>
+	    <th>Elimina</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr ng-repeat="a in autori | filter:ricerca ">
+	    <td>{{a.nome_autore}}</td>
+	    <td><button ng-click="openDeleteAutore(a.id_autore)" class="btn btn-primary">x</button></td>
+	  </tr>
+	</tbody>
+ </table>
+
+ <script type="text/ng-template" id="PopupCancellaAutore.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Cancella autore</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+        Sei sicuro di cancellare l'autore {{id_autore}}
+			<div ng-show="$popup.error" class="alert alert-danger" role="alert">Errore sul server: {{$popup.errorMsg}}</div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$popup.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$popup.cancel()">Cancel</button>
+        </div>
+ </script>

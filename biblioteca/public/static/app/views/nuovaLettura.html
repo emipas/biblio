@@ -1,0 +1,32 @@
+
+<h1>Aggiunta Lettura</h1>
+<div class="form-group">
+  {{books}}<br>
+
+ 
+  <br>
+    <label for="titolo">Titolo</label>{{reading}}
+  <select ng-model="reading.id_libro" ng-options="b.id_libro as b.titolo for b in books" class="form-control" id="titolo">
+    <option></option>
+  </select>
+
+  <br>
+  <label for="nome_utente">Utente</label>{{utenteToAdd}}
+  <select ng-model="reading.id_utente" ng-options="u.id_utente as u.nome_utente for u in utenti" class="form-control" id="nome_utente">
+    <option></option>
+  </select>
+
+  <br>
+  <label for="num_pag_lette">Pagine lette</label>
+  <input ng-model="reading.num_pag_lette" type="number" class="form-control" id="num_pag_lette" aria-describedby="textHelp" placeholder="Scrivi qui">
+  <label for="note">Note</label>
+  <textarea ng-model="reading.note" row="4" class="form-control" id="note" aria-describedby="textHelp" placeholder="Scrivi qui"></textarea>
+  <label for="data_inizio_lettura">Inizio lettura</label>
+  <input ng-model="reading.data_inizio_lettura" type="date" class="form-control" id="data_inizio_lettura" aria-describedby="textHelp" placeholder="Scrivi qui">
+  <label for="data_fine_lettura">Fine lettura</label>
+  <input ng-model="reading.data_fine_lettura" type="date" class="form-control" id="data_fine_lettura" aria-describedby="textHelp" placeholder="Scrivi qui">
+</div>
+
+<button ng-click="salvaLibro(reading)" type="submit" class="btn btn-primary">Submit</button>
+
+

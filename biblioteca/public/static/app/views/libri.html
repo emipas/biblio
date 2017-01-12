@@ -1,0 +1,116 @@
+ <h2>Libri</h2>            
+
+  <label for="ricerca">Cerca libro</label>
+  <input ng-model="ricerca.$" type="text" class="form-control" id="ricerca" aria-describedby="textHelp" placeholder="Scrivi qui">
+
+  <label for="ricercaTitolo">Cerca per Titolo</label>
+  <input ng-model="ricerca.titolo" type="text" class="form-control" id="ricercaTitolo" aria-describedby="textHelp" placeholder="Scrivi qui">
+  
+  <label for="ricercaAutore">Cerca per Autore</label>
+  <input ng-model="ricerca.nome_autore" type="text" class="form-control" id="ricercaAutore" aria-describedby="textHelp" placeholder="Scrivi qui">
+
+  <label for="ricercaCategoria">Cerca per Categoria</label>
+  <input ng-model="ricerca.descrizione" type="text" class="form-control" id="ricercaCategoria" aria-describedby="textHelp" placeholder="Scrivi qui">
+
+  <label for="ricercaCategoria">Cerca per Utente</label>
+  <input ng-model="ricerca.nome_utente" type="text" class="form-control" id="ricercaCategoria" aria-describedby="textHelp" placeholder="Scrivi qui">
+  <br>
+
+<button class="btn btn-primary" ng-click="goToAutori()">Autori</button>
+<button class="btn btn-primary" ng-click="goToCategorie()">Categorie</button>
+<button class="btn btn-primary" ng-click="goToUtenti()">Utenti</button>
+  <table class="table table-striped" >
+    <thead>
+      <tr>
+        <th>Titolo</th>
+        <th>Autore</th>
+        <th>Isbn</th>
+        <th>Utente</th>
+        <th>Categoria</th>
+        <th>Modifica</th>
+        <th>Elimina</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="l in libri | filter:ricerca ">
+        <td>{{l.titolo}}</td>
+        <td>{{l.autori}}</td>
+        <td>{{l.isbn}}</td>
+        <td>{{l.nome_utente}}</td>
+        <td>{{l.categorie}}</td>
+        <td><button ng-click="openUpdateLibro(l)" class="btn btn-primary">v</button></td>
+        <td><button ng-click="openDeleteLibro(l.id_libro)" class="btn btn-primary">x</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+<script type="text/ng-template" id="PopupCancellaLibro.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Cancella libri</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+        Sei sicuro di cancellare il libro {{$popup.idLibro}}
+          <div ng-show="$popup.error" class="alert alert-danger" role="alert">Errore sul server</div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$popup.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$popup.cancel()">Cancel</button>
+        </div>
+ </script>
+
+<script type="text/ng-template" class="modal fade bd-example-modal-lg" id="PopupModificaLibro.html">
+        <div class="form-group p20">
+        <div class="modal-title"><h3>Modifica libro</h3>
+          {{$popup.libro}}</div>
+
+          <br>
+          <label for="titolo">Titolo</label>
+          <input ng-model="$popup.libro.titolo" type="text" class="form-control" id="titolo" aria-describedby="textHelp">
+          <!-- <label for="nome_autore">Autore</label>
+          <select ng-model="autoreToAdd" ng-options="a as a.nome_autore disable when a.isAddedAutore for a in autori" class="form-control" id="nome_autore">
+           <option></option>
+          </select>   
+          <button ng-click="addAutore(autoreToAdd)" class="btn btn-primary">+</button>
+          <div ng-repeat="a in book.autori" class="form-control">{{a.nome_autore}} <button ng-click="removeAutore(a)" class="btn btn-primary">x</button> </div>
+
+          <br>
+          <label for="descrizione">Categoria</label>{{categoriaToAdd}}
+          <select ng-model="categoriaToAdd" ng-options="c as c.descrizione disable when c.isAddedCategoria for c in categorie" class="form-control" id="descrizione">
+            <option></option>
+          </select>   
+          <button ng-click="addCategoria(categoriaToAdd)" class="btn btn-primary">+</button>
+          <div ng-repeat="c in book.categorie" class="form-control">{{c.descrizione}} <button ng-click="removeCategoria(c)" class="btn btn-primary">x</button> </div>
+
+          <br>
+          <label for="nome_utente">Utente</label>{{utenteToAdd}}
+          <select ng-model="book.utenti" ng-options="u as u.nome_utente for u in utenti" class="form-control" id="nome_utente">
+            <option></option>
+          </select> -->
+
+          <br>
+          <label for="editore">Editore</label>
+          <input ng-model="$popup.libro.editore" type="text" class="form-control" id="editore" aria-describedby="textHelp">
+          <label for="isbn">Isbn</label>
+          <input ng-model="$popup.libro.isbn" type="number" class="form-control" id="isbn" aria-describedby="textHelp">
+          <label for="numero_pagine">Numero di pagine</label>
+          <input ng-model="$popup.libro.numero_pagine" type="number" class="form-control" id="numero_pagine" aria-describedby="textHelp">
+          <label for="num_pag_lette">Pagine lette</label>
+          <input ng-model="$popup.libro.num_pag_lette" type="number" class="form-control" id="num_pag_lette" aria-describedby="textHelp">
+          <label for="collocazione">Collocazione</label>
+          <input ng-model="$popup.libro.collocazione" type="text" class="form-control" id="collocazione" aria-describedby="textHelp">
+          <label for="argomenti">Argomenti</label>
+          <input ng-model="$popup.libro.argomenti" type="text" class="form-control" id="argomenti" aria-describedby="textHelp">
+          <label for="note">Note</label>
+          <textarea ng-model="$popup.libro.note" row="4" class="form-control" id="note" aria-describedby="textHelp"></textarea>
+          <label for="data_inizio_lettura">Inizio lettura</label>
+          <input ng-model="$popup.libro.data_inizio_lettura" type="date" class="form-control" id="data_inizio_lettura" aria-describedby="textHelp">
+          <label for="data_fine_lettura">Fine lettura</label>
+          <input ng-model="$popup.libro.data_fine_lettura" type="date" class="form-control" id="data_fine_lettura" aria-describedby="textHelp">
+        </div>
+
+          <div ng-show="$popup.error" class="alert alert-danger" role="alert">Errore sul server</div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$popup.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$popup.cancel()">Cancel</button>
+        </div>
+ </script>

@@ -1,0 +1,125 @@
+
+<h1>Aggiunta Libro</h1>
+<div class="form-group">
+  {{book}}<br>
+
+
+  
+  <button ng-click="openAutorePopup()" type="button" class="btn btn-primary">Aggiungi Autore</button>
+  <button ng-click="openCategoriaPopup()" type="button" class="btn btn-primary">Aggiungi Categorie</button>
+  <button ng-click="openUtentePopup()" type="button" class="btn btn-primary">Aggiungi Utente</button>
+ 
+  <br>
+  <label for="titolo">Titolo</label>
+  <input ng-model="book.titolo" type="text" class="form-control" id="titolo" aria-describedby="textHelp" placeholder="Scrivi qui">
+  <label for="nome_autore">Autore</label>
+  <select ng-model="autoreToAdd" ng-options="a as a.nome_autore disable when a.isAddedAutore for a in autori" class="form-control" id="nome_autore">
+   <option></option>
+  </select>   
+  <button ng-click="addAutore(autoreToAdd)" class="btn btn-primary m5">+</button>
+  <div ng-repeat="a in book.autori" class="form-control he50">{{a.nome_autore}} <button ng-click="removeAutore(a)" class="btn btn-primary">x</button> </div>
+
+  <br>
+  <label for="descrizione">Categoria</label>
+  <select ng-model="categoriaToAdd" ng-options="c as c.descrizione disable when c.isAddedCategoria for c in categorie" class="form-control" id="descrizione">
+    <option></option>
+  </select>   
+  <button ng-click="addCategoria(categoriaToAdd)" class="btn btn-primary m5">+</button>
+  <div ng-repeat="c in book.categorie" class="form-control he50">{{c.descrizione}} <button ng-click="removeCategoria(c)" class="btn btn-primary">x</button> </div>
+
+  <br>
+  <label for="editore">Editore</label>
+  <input ng-model="book.editore" type="text" class="form-control" id="editore" aria-describedby="textHelp" placeholder="Scrivi qui">
+  <label for="isbn">Isbn</label>
+  <input ng-model="book.isbn" type="number" class="form-control" id="isbn" aria-describedby="textHelp" placeholder="Scrivi qui">
+  <label for="numero_pagine">Numero di pagine</label>
+  <input ng-model="book.numero_pagine" type="number" class="form-control" id="numero_pagine" aria-describedby="textHelp" placeholder="Scrivi qui">
+  <label for="collocazione">Collocazione</label>
+  <input ng-model="book.collocazione" type="text" class="form-control" id="collocazione" aria-describedby="textHelp" placeholder="Scrivi qui">
+  <label for="argomenti">Argomenti</label>
+  <input ng-model="book.argomenti" type="text" class="form-control" id="argomenti" aria-describedby="textHelp" placeholder="Scrivi qui">
+</div>
+
+<button ng-click="salvaLibro(book)" type="submit" class="btn btn-primary">Submit</button>
+
+
+<script type="text/ng-template" id="ModalContentAutore.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Nuovo Autore</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+        {{$ctrl.newAutore}}
+        <form>
+            <div class="form-group">
+              <label for="recipient-name" class="form-control-label">Nome Autore:</label>
+              <input ng-model="$ctrl.newAutore.nome_autore" type="text" class="form-control" id="recipient-name">
+            </div>
+            
+          </form>
+          <div ng-show="$ctrl.error" class="alert alert-danger" role="alert">Errore sul server</div>
+            <ul>
+                <li ng-repeat="item in $ctrl.items">
+                    <a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            <b>{{ $ctrl.selected.item }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+        </div>
+    </script>
+    
+<script type="text/ng-template" id="ModalContentCategoria.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Nuova Categoria</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+        {{$ctrl.newCategoria}}
+        <form>
+            <div class="form-group">
+              <label for="recipient-name" class="form-control-label">Categoria:</label>
+              <input ng-model="$ctrl.newCategoria.descrizione" type="text" class="form-control" id="recipient-name">
+            </div>
+            
+          </form>
+          <div ng-show="$ctrl.error" class="alert alert-danger" role="alert">Errore sul server</div>
+            <ul>
+                <li ng-repeat="item in $ctrl.items">
+                    <a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            <b>{{ $ctrl.selected.item }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+        </div>
+    </script>
+
+<script type="text/ng-template" id="ModalContentUtente.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Nuovo Utente</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+        {{$ctrl.newUtente}}
+        <form>
+            <div class="form-group">
+              <label for="recipient-name" class="form-control-label">Nome Utente:</label>
+              <input ng-model="$ctrl.newUtente.nome_utente" type="text" class="form-control" id="recipient-name">
+            </div>
+            
+          </form>
+          <div ng-show="$ctrl.error" class="alert alert-danger" role="alert">Errore sul server</div>
+            <ul>
+                <li ng-repeat="item in $ctrl.items">
+                    <a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            <b>{{ $ctrl.selected.item }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+        </div>
+    </script>

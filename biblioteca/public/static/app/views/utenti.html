@@ -1,0 +1,33 @@
+ <h2>Utenti</h2>            
+
+  <label for="ricerca">Cerca Utente</label>
+  <input ng-model="ricerca.$" type="text" class="form-control" id="ricerca" aria-describedby="textHelp" placeholder="Scrivi qui">
+  <br>
+  
+ <table class="table table-striped" >
+	<thead>
+	  <tr>
+	    <th>Utente</th>
+	    <th>Elimina</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr ng-repeat="u in utenti | filter:ricerca ">
+	    <td>{{u.nome_utente}}</td>
+	    <td><button ng-click="openDeleteUtente(u.id_utente)" class="btn btn-primary">x</button></td>
+	  </tr>
+	</tbody>
+ </table>
+
+ <script type="text/ng-template" id="PopupCancellaUtente.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Cancella utente</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+        Sei sicuro di cancellare l'utente {{id_utente}}
+			<div ng-show="$popup.error" class="alert alert-danger" role="alert">Errore sul server: {{$popup.errorMsg}}</div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$popup.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$popup.cancel()">Cancel</button>
+        </div>
+ </script>

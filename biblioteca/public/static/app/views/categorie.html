@@ -1,0 +1,32 @@
+ <h2>Categorie</h2>     
+
+  <label for="ricercaCategoria">Cerca Categoria</label>
+  <input ng-model="ricerca.$" type="text" class="form-control" id="ricercaCategoria" aria-describedby="textHelp" placeholder="Scrivi qui">
+
+      <table class="table table-striped" >
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Elimina</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="c in categorie | filter:ricerca ">
+            <td>{{c.descrizione}}</td>
+            <td><button ng-click="openDeleteCategoria(c.id_categoria)" class="btn btn-primary">x</button></td>
+          </tr>
+        </tbody>
+      </table>  
+
+ <script type="text/ng-template" id="PopupCancellaCategoria.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Cancella categoria</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+        Sei sicuro di cancellare la categoria {{id_categoria}}
+          <div ng-show="$popup.error" class="alert alert-danger" role="alert">Errore sul server: {{$popup.errorMsg}}</div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$popup.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$popup.cancel()">Cancel</button>
+        </div>
+ </script>
